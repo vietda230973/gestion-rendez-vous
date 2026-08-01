@@ -1,0 +1,119 @@
+.profile-form-section,
+.profile-preview-section {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.profile-form-section h1,
+.profile-preview-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #818cf8 0%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.profile-page {
+    padding: 8rem 7% 4rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.preview-card {
+    background: #0f172a;
+    border-radius: 1rem;
+    padding: 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.preview-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+}
+
+.preview-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 280px;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.client-table th,
+.client-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  text-align: left;
+}
+
+.client-table th {
+  cursor: pointer;
+  background-color: linear-gradient(135deg, #818cf8 0%, #c4b5fd 100%);
+  user-select: none;
+}
+
+.client-table th:hover {
+  background-color: linear-gradient(135deg, #818cf8 0%, #c4b5fd 100%);
+}
+
+.actif {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.inactif {
+  color: #c62828;
+  font-weight: 600;
+}
+
+.btn-delete {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background-color: #c62828;
+}
+
+.loading,
+.error,
+.no-results {
+  padding: 16px;
+  text-align: center;
+}
+
+.error {
+  color: #c62828;
+}

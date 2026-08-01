@@ -1,0 +1,70 @@
+
+<main class="profile-page">
+    <div class="profile-container">
+        <section class="profile-form-section">
+            <h1>Liste des rendez vous</h1>
+            <div class="preview-card">
+                <div class="preview-header">
+                    <input type="text" [(ngModel)]="recherche" (ngModelChange)="onRechercheChange()"
+                        placeholder="Rechercher un client..." class="search-input" />
+                </div>
+
+                <div *ngIf="chargement" class="loading">Chargement en cours...</div>
+                <div *ngIf="erreur" class="error">{{ erreur }}</div>
+
+
+
+                <table *ngIf="!chargement && rendezvouslist.length > 0" class="client-table">
+                    <thead>
+                        <tr>
+                            <th>Identifiant</th>
+                            <th>Titre</th>
+                            <th>Client</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        <tr *ngFor="let client of rendezvouslist">
+                            <td>{{ client.id }}</td>
+                            <td>{{ client.titre }}</td>
+                            <td>{{ client.client }}</td>
+                            <td>{{ client.dateDebut }}</td>
+                            <td>{{ client.dateFin }}</td>
+
+                            <td class="actions-cell">
+                                <button (click)="ouvrirEdition(client)" class="btn-edit">Modifier</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div *ngIf="!chargement && rendezvouslist.length === 0" class="no-results">
+                    Aucun rendez-vous trouvé.
+                </div>
+
+                <!-- Pagination Material -->
+                <mat-paginator
+                    *ngIf="totalElements > 0"
+                    [length]="totalElements"
+                    [pageSize]="taillePage"
+                    [pageSizeOptions]="taillesPageDisponibles"
+                    [pageIndex]="pageActuelle"
+                    (page)="onPageChange($event)"
+                    showFirstLastButtons
+                    aria-label="Sélectionner une page"
+                ></mat-paginator>
+            </div>
+
+            <app-rendez-vous-form *ngIf="afficherFormulaire" [clientAEditer]="clientEnEdition"
+                (enregistre)="onClientEnregistre($event)" (annule)="fermerFormulaire()"></app-rendez-vous-form>
+        
+    
+    </section>
+    </div>
+</main>
+      
