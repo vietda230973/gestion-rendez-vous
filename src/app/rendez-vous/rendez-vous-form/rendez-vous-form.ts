@@ -7,12 +7,6 @@ import { RendezvousListService } from '../../rendez-vous-list/rendez-vous-list.s
 import { SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientService } from '../../client/client.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -37,7 +31,7 @@ export class RendezVousForm implements OnInit, OnChanges {
   chargementClients = true;
 
   rendezvousForm = this.formBuilder.group({
-    id : this.formBuilder.control<number | null>(null),
+    id :  this.formBuilder.control<number | null>({ value: null, disabled: true }),
     titre: this.formBuilder.control<string | null>(''),
     client: this.formBuilder.control<number | null>(null),
     dateDebut: this.formBuilder.control<Date | null>(null),
@@ -150,7 +144,7 @@ export class RendezVousForm implements OnInit, OnChanges {
     };
 
    const requete = this.modeEdition
-      ? this.rendezvousListService.modifierClient(this.clientAEditer!.id!, valeurs)
+      ? this.rendezvousListService.modifierRendezVous(this.clientAEditer!.id!, valeurs)
       : this.rendezvousListService.creer(valeurs);
 
    

@@ -2,7 +2,7 @@
 	<h1>Saisir le rendez-vous</h1>
 	<h3>{{ modeEdition ? 'Modifier le rendez-vous' : 'Nouveau rendez-vous' }}</h3>
 	<form class="profile-form" [formGroup]="rendezvousForm">
-		<div class="form-group">
+		<div *ngIf="modeEdition" class="form-group">
 			<label for="id">Id</label>
 			<input type="text" id="id" name="id" formControlName="id" placeholder="1">
 		</div>
@@ -24,8 +24,6 @@
 			</select>
  
 		</div>
-
-
 
 		<div class="form-group">
 			<label for="dateDebut">Date et heure de début</label>

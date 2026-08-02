@@ -20,7 +20,7 @@ export class RendezvousListService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  modifierClient(id: number, rendezvous: Omit<RendezVousCreation, 'id'>): Observable<RendezVousDonnee> {
+  modifierRendezVous(id: number, rendezvous: Omit<RendezVousCreation, 'id'>): Observable<RendezVousDonnee> {
     console.log("modifier client" + id);
     return this.http.put<RendezVousDonnee>(`${this.apiUrl}/update/${id}`, rendezvous);
   }
@@ -28,7 +28,6 @@ export class RendezvousListService {
   creer(rdv: RendezVousCreation): Observable<RendezVousDonnee> {
     return this.http.post<RendezVousDonnee>(`${this.apiUrl}/create`, rdv);
   }
-
 
   getClientsPagines(params: RendezVousLsParams): Observable<RendezVousLsPage> {
     let httpParams = new HttpParams()

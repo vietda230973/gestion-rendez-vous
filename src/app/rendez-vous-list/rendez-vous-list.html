@@ -12,8 +12,6 @@
                 <div *ngIf="chargement" class="loading">Chargement en cours...</div>
                 <div *ngIf="erreur" class="error">{{ erreur }}</div>
 
-
-
                 <table *ngIf="!chargement && rendezvouslist.length > 0" class="client-table">
                     <thead>
                         <tr>
@@ -26,17 +24,16 @@
                         </tr>
                     </thead>
 
-
                     <tbody>
-                        <tr *ngFor="let client of rendezvouslist">
-                            <td>{{ client.id }}</td>
-                            <td>{{ client.titre }}</td>
-                            <td>{{ client.client }}</td>
-                            <td>{{ client.dateDebut }}</td>
-                            <td>{{ client.dateFin }}</td>
+                        <tr *ngFor="let rendezvous of rendezvouslist">
+                            <td>{{ rendezvous.id }}</td>
+                            <td>{{ rendezvous.titre }}</td>
+                            <td>{{ rendezvous.client }}</td>
+                            <td>{{ rendezvous.dateDebut }}</td>
+                            <td>{{ rendezvous.dateFin }}</td>
 
                             <td class="actions-cell">
-                                <button (click)="ouvrirEdition(client)" class="btn-edit">Modifier</button>
+                                <button (click)="ouvrirEdition(rendezvous)" class="btn-edit">Modifier</button>
                             </td>
                           
                         </tr>
@@ -62,8 +59,7 @@
 
             <app-rendez-vous-form *ngIf="afficherFormulaire" [clientAEditer]="clientEnEdition"
                 (enregistre)="onClientEnregistre($event)" (annule)="fermerFormulaire()"></app-rendez-vous-form>
-        
-    
+           
     </section>
     </div>
 </main>
