@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RendezVousDonnee, RendezVousLsPage, RendezVousLsParams } from '../rendez-vous/rendez-vous-donnee';
+import { RendezVousCreation, RendezVousDonnee, RendezVousLsPage, RendezVousLsParams } from '../rendez-vous/rendez-vous-donnee';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,15 @@ export class RendezvousListService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  modifierClient(id: number, rendezvous: Omit<RendezVousDonnee, 'id'>): Observable<RendezVousDonnee> {
+  modifierClient(id: number, rendezvous: Omit<RendezVousCreation, 'id'>): Observable<RendezVousDonnee> {
     console.log("modifier client" + id);
     return this.http.put<RendezVousDonnee>(`${this.apiUrl}/update/${id}`, rendezvous);
   }
+
+  creer(rdv: RendezVousCreation): Observable<RendezVousDonnee> {
+    return this.http.post<RendezVousDonnee>(`${this.apiUrl}/create`, rdv);
+  }
+
 
   getClientsPagines(params: RendezVousLsParams): Observable<RendezVousLsPage> {
     let httpParams = new HttpParams()

@@ -1,5 +1,6 @@
 <section class="profile-form-section">
 	<h1>Saisir le rendez-vous</h1>
+	<h3>{{ modeEdition ? 'Modifier le rendez-vous' : 'Nouveau rendez-vous' }}</h3>
 	<form class="profile-form" [formGroup]="rendezvousForm">
 		<div class="form-group">
 			<label for="id">Id</label>
@@ -12,9 +13,19 @@
 		</div>
 
 		<div class="form-group">
-			<label for="client">Client</label>
-			<input type="text" id="client" name="client" formControlName="client" placeholder="Nom du client">
+			<label for="client">Client *</label>
+			<select id="client" formControlName="client" >
+				<option value="" disabled selected>
+					{{ chargementClients ? 'Chargement des clients...' : 'Sélectionner un client' }}
+				</option>
+				<option *ngFor="let client of clients" [value]="client.id">
+					{{ client.prenom }} {{ client.nom }}
+				</option>
+			</select>
+ 
 		</div>
+
+
 
 		<div class="form-group">
 			<label for="dateDebut">Date et heure de début</label>
@@ -30,7 +41,7 @@
 		
 			<button type="button" class="submit-button" (click)="onAnnuler()">Annuler</button>
 			<button type="submit" class="submit-button" (click)="onSubmit()" [disabled]="enCours">
-				Enregistrement</button>
+				{{ enCours ? 'Enregistrement...' : (modeEdition ? 'Mettre à jour' : 'Ajouter') }}</button>
 		</div>
 	</form>
 </section>
