@@ -34,10 +34,8 @@ export class RendezVousForm implements OnInit, OnChanges {
     id :  this.formBuilder.control<number | null>({ value: null, disabled: true }),
     titre: this.formBuilder.control<string | null>(''),
     client: this.formBuilder.control<number | null>(null),
-    dateDebut: this.formBuilder.control<Date | null>(null),
-    dateDebutHeure: this.formBuilder.control<string | null>(''),
-    dateFin: this.formBuilder.control<Date | null>(null),
-    dateFinHeure: this.formBuilder.control<string | null>(''),
+    dateDebut: this.formBuilder.control<string | null>(null),
+    dateFin: this.formBuilder.control<string | null>(null),
   })
 
   constructor(private rendezvousListService: RendezvousListService, private clientService: ClientService ) {
@@ -57,7 +55,7 @@ export class RendezVousForm implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['clientAEditer'] && this.rendezvousForm) {
-      this.patchFormSiEdition();
+       this.patchFormSiEdition();
     }
   }
 
@@ -77,61 +75,20 @@ export class RendezVousForm implements OnInit, OnChanges {
 
   private patchFormSiEdition(): void {
     if (this.clientAEditer) {
-      console.log("patchFormSiEdition " + this.clientAEditer!.id!);
-      const dateDebut = new Date(this.clientAEditer.dateDebut!);
-      const dateDebutHeure = dateDebut.toTimeString().slice(0, 5); // "HH:mm"
-      const dateFin = new Date(this.clientAEditer.dateFin!);
-      const dateFinHeure = dateFin.toTimeString().slice(0, 5); // "HH:mm"
-
+  
       this.rendezvousForm.patchValue({
         id : this.clientAEditer.id,
         titre: this.clientAEditer.titre,
         client: this.clientAEditer.client,
-        dateDebut: dateDebut,
-        dateDebutHeure : dateDebutHeure,
-        dateFin : dateFin,
-        dateFinHeure : dateFinHeure
+        dateDebut: this.clientAEditer.dateDebut,
+        dateFin : this.clientAEditer.dateFin,
       });
     } else {
       this.rendezvousForm.reset();
     }
   }
 
-  private combinerDateDebutHeure(): string | null{
-
-    const date: Date | null = this.rendezvousForm.value.dateDebut ?? null;
-    const heureTexte: string | null | undefined = this.rendezvousForm.value.dateDebutHeure;
-
-    if (!date || !heureTexte) {
-      return null;
-    }
-
-    const [heures, minutes] = heureTexte.split(':').map(Number);
-
-    const resultat = new Date(date);
-    resultat.setHours(heures, minutes, 0, 0);
-
-    return resultat.toISOString().slice(0, 19); // format "YYYY-MM-DDTHH:mm:ss"
-  }
-
-  private combinerDateFinHeure(): string | null{
-
-    const date: Date | null = this.rendezvousForm.value.dateFin ?? null;
-    const heureTexte: string | null | undefined = this.rendezvousForm.value.dateFinHeure;
-
-    if (!date || !heureTexte) {
-      return null;
-    }
-
-    const [heures, minutes] = heureTexte.split(':').map(Number);
-
-    const resultat = new Date(date);
-    resultat.setHours(heures, minutes, 0, 0);
-
-    return resultat.toISOString().slice(0, 19); // format "YYYY-MM-DDTHH:mm:ss"
-  }
-
-  onSubmit(): void {
+   onSubmit(): void {
     
     this.enCours = true;
     this.erreur = null;
@@ -139,17 +96,15 @@ export class RendezVousForm implements OnInit, OnChanges {
     const valeurs: RendezVousCreation = {
       titre: this.rendezvousForm.value.titre || null,
       client: this.rendezvousForm.value.client || null,
-      dateDebut: this.combinerDateDebutHeure(),
-      dateFin: this.combinerDateFinHeure()
+      dateDebut: this.rendezvousForm.value.dateDebut! ,
+      dateFin: this.rendezvousForm.value.dateFin!
     };
 
    const requete = this.modeEdition
       ? this.rendezvousListService.modifierRendezVous(this.clientAEditer!.id!, valeurs)
       : this.rendezvousListService.creer(valeurs);
 
-   
-    console.log("onSubmit");
-    requete.subscribe({
+   requete.subscribe({
       next: (client) => {
         this.enCours = false;
         this.enregistre.emit(client);
@@ -162,7 +117,6 @@ export class RendezVousForm implements OnInit, OnChanges {
   }
 
   onAnnuler(): void {
-    console.log("onAnnuler");
     this.rendezvousForm.reset();
     this.annule.emit();
   }
