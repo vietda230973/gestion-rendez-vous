@@ -8,6 +8,7 @@ import { SimpleChanges } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClientService } from '../../client/client.service';
 import { CommonModule } from '@angular/common';
+import { NotificationService } from '../../erreur/notification.service';
 
 @Component({
   selector: 'app-rendez-vous-form',
@@ -38,7 +39,7 @@ export class RendezVousForm implements OnInit, OnChanges {
     dateFin: this.formBuilder.control<string | null>(null),
   })
 
-  constructor(private rendezvousListService: RendezvousListService, private clientService: ClientService ) {
+  constructor(private rendezvousListService: RendezvousListService, private clientService: ClientService, private notificationService : NotificationService) {
     this.rendezvousForm.valueChanges.pipe(
       takeUntilDestroyed()
     ).subscribe();
@@ -108,6 +109,7 @@ export class RendezVousForm implements OnInit, OnChanges {
       next: (client) => {
         this.enCours = false;
         this.enregistre.emit(client);
+        this.notificationService.afficherSucces("Rendez vous est enregsitré.");
       },
       error: (err: HttpErrorResponse) => {
         this.enCours = false;

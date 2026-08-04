@@ -56,7 +56,7 @@ export class RendezVousList implements OnInit {
   chargerClients(): void {
     this.chargement = true;
     this.rendezvousListService.getClientsPagines({
-        page: this.pageActuelle, // backend 1-indexé — adapte si le tien est 0-indexé
+        page: this.pageActuelle, 
         limit: this.taillePage,
         recherche: this.recherche.trim() || undefined
       })
