@@ -21,7 +21,6 @@ export class RendezvousListService {
   }
 
   modifierRendezVous(id: number, rendezvous: Omit<RendezVousCreation, 'id'>): Observable<RendezVousDonnee> {
-    console.log("modifier client" + id);
     return this.http.put<RendezVousDonnee>(`${this.apiUrl}/update/${id}`, rendezvous);
   }
 

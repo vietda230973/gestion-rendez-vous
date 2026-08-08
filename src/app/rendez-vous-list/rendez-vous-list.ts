@@ -112,7 +112,6 @@ export class RendezVousList implements OnInit, OnDestroy {
   }
 
   onClientEnregistre(client: RendezVousDonnee): void {
-    console.log("onClientEnregistre " + client.id);
     this.chargerClients();
     this.fermerFormulaire();
   }
