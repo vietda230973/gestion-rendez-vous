@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RendezvousListService } from './rendez-vous-list.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   templateUrl: './rendez-vous-list.html',
   styleUrl: './rendez-vous-list.scss',
 })
-export class RendezVousList implements OnInit {
+export class RendezVousList implements OnInit, OnDestroy {
 
   rendezvouslist: RendezVousDonnee[] = [];
   recherche: string = '';
@@ -122,4 +122,7 @@ export class RendezVousList implements OnInit {
     this.clientEnEdition = null;
   }
 
+  ngOnDestroy(): void {
+    this.rechercheSubject.unsubscribe
+  }
 }
